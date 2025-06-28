@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.ksp)
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation libs.kotlin.reflect
+
+    ksp project(":processor")
+}
+
+kotlin {
+    jvmToolchain(17)
+}
+
+jar {
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes 'Main-Class': 'MainKt'
+    }
+}

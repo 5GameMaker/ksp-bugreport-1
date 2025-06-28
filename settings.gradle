@@ -1,0 +1,28 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "0.5.0"
+}
+
+dependencyResolutionManagement {
+    versionCatalogs {
+        libs {
+            def kotlin = "2.2.0"
+            def kotlin_ksp = "2.0.2"
+
+            plugin("kotlin-jvm", "org.jetbrains.kotlin.jvm").version(kotlin)
+            plugin("kotlin-ksp", "com.google.devtools.ksp").version("$kotlin-$kotlin_ksp")
+
+            library("kotlin-ksp", "com.google.devtools.ksp", "symbol-processing-api").version("$kotlin-$kotlin_ksp")
+            library("kotlin-reflect", "org.jetbrains.kotlin", "kotlin-reflect").version(kotlin)
+        }
+    }
+}
+
+rootProject.name = 'KtBug1'
+include 'processor'

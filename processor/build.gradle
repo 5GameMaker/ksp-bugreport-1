@@ -1,0 +1,15 @@
+plugins {
+    alias(libs.plugins.kotlin.jvm)
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation libs.kotlin.ksp
+}
+
+kotlin {
+    jvmToolchain(17)
+}
